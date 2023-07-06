@@ -21,8 +21,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        return view('home');
+    public function index() {
+        if (auth()->user()->type === "broker") return view("broker.home");
+        else if (auth()->user()->type === "underwriting") return view("underwriting.home");
+        else return view("policy.home");
     }
 }

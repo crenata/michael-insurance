@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get("/", function () {
+    return view("welcome");
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get("home", [App\Http\Controllers\HomeController::class, "index"])->name("home");
+Route::prefix("broker")->middleware("auth")->group(function () {
+    Route::prefix("quotation")->group(function () {
+        Route::resource("/", \App\Http\Controllers\Broker\QuotationController::class)->names("broker.quotation");
+        Route::post("next", [\App\Http\Controllers\Broker\QuotationController::class, "next"])->name("broker.quotation.next");
+        Route::get("rejected", [\App\Http\Controllers\Broker\QuotationController::class, "rejected"])->name("broker.quotation.rejected");
+    });
+});

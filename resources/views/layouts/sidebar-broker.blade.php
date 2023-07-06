@@ -1,28 +1,23 @@
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <!-- Add icons to the links using the .nav-icon class
-             with font-awesome or any other icon font library -->
-
         <li class="nav-item menu-open">
-            <a href="home.php" class="nav-link active">
+            <a href="{{ route("home") }}" class="nav-link {{ Route::is("home") ? "active" : "" }}">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                     Home
                 </p>
             </a>
         </li>
-
         <li class="nav-item">
-            <a href="createQuotation.php" class="nav-link">
+            <a href="{{ route("broker.quotation.create") }}" class="nav-link {{ Route::is("broker.quotation.create") ? "active" : "" }}">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                     Create Quotation
                 </p>
             </a>
         </li>
-
         <li class="nav-item">
-            <a href="viewCreatedQuotation.php" class="nav-link">
+            <a href="{{ route("broker.quotation.index") }}" class="nav-link {{ Route::is("broker.quotation.index") ? "active" : "" }}">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
                     View Created Quotation
@@ -30,7 +25,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="viewRejectedQuotation.php" class="nav-link">
+            <a href="{{ route("broker.quotation.rejected") }}" class="nav-link {{ Route::is("broker.quotation.rejected") ? "active" : "" }}">
                 <i class="nav-icon fas fa-chart-pie"></i>
                 <p>
                     View Rejected Quotation
@@ -61,7 +56,6 @@
                     Logout
                 </p>
             </a>
-
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
             </form>

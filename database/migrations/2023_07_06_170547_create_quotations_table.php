@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string("no_quotation");
             $table->string("name");
-            $table->string("cob");
             $table->longText("address");
             $table->string("kelurahan");
             $table->string("kecamatan");
@@ -23,7 +22,28 @@ return new class extends Migration
             $table->string("province");
             $table->date("start_date");
             $table->date("end_date");
+            $table->string("cob");
+            $table->string("coverage");
+            $table->unsignedBigInteger("vehicle_type_id");
+            $table->unsignedBigInteger("plat_id");
+            $table->unsignedBigInteger("vsi");
+            $table->string("flood");
+            $table->string("earthquake");
+            $table->string("srcc");
+            $table->string("tns");
+            $table->string("others");
+            $table->string("tpl");
+            $table->unsignedBigInteger("tpl_limit")->nullable();
+            $table->string("tpl_to_passenger");
+            $table->unsignedBigInteger("tpl_to_passenger_limit")->nullable();
+            $table->string("dpa");
+            $table->unsignedBigInteger("dpa_limit")->nullable();
+            $table->string("ppa");
+            $table->unsignedBigInteger("ppa_limit")->nullable();
             $table->timestamps();
+
+            $table->foreign("vehicle_type_id")->references("id")->on("vehicle_types")->onDelete("cascade");
+            $table->foreign("plat_id")->references("id")->on("plats")->onDelete("cascade");
         });
     }
 

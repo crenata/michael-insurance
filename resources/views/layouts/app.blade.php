@@ -25,7 +25,6 @@
     <link rel="stylesheet" href="{{ asset("plugins/daterangepicker/daterangepicker.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs5.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/toastr/toastr.min.css") }}">
-    <link rel="stylesheet" href="{{ asset("dist/css/stepper.css") }}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
     <script
@@ -34,6 +33,8 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
     ></script>
+
+    @yield("stylesheet")
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])

@@ -4,6 +4,10 @@
     Create Quotation
 @endsection
 
+@section("stylesheet")
+    <link rel="stylesheet" href="{{ asset("dist/css/stepper.css") }}">
+@endsection
+
 @section("breadcrumb")
     <li class="breadcrumb-item active">Create Quotation</li>
 @endsection
@@ -46,13 +50,17 @@
                             Class Of Business
                         @elseif($step === 3)
                             Object Details
+                        @elseif($step === 4)
+                            Additional Benefit
+                        @elseif($step === 5)
+                            Preview
                         @endif
                     </h3>
                 </div>
                 <form method="POST" action="{{ route("broker.quotation." . ($step === 5 ? "store" : "next")) }}">
                     @csrf
 
-                    <input type="number" name="step" value="{{ $step }}" class="d-none">
+                    <input type="number" name="step" id="step" value="{{ $step }}" class="d-none">
                     <input type="text" name="data" value="{{ json_encode($data) }}" class="d-none">
                     @if($step === 1)
                         <div class="card-body">
@@ -171,61 +179,116 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label><b>Main Coverage</b></label>
-                                <select class="form-control" name="mainCoverage" id="mainCoverage" required>
-                                    <option disabled>Choose...</option>
-                                    <option>TLO</option>
-                                    <option>Comprehensive</option>
+                                <select class="form-control @error("coverage") is-invalid @enderror" name="coverage"
+                                        id="coverage"
+                                        required>
+                                    <option>Choose...</option>
+                                    @foreach(["TLO", "Comprehensive"] as $coverage)
+                                        <option
+                                            value="{{ $coverage }}" {{ $coverage === old("coverage", empty($data["coverage"]) ? null : $data["coverage"]) ? "selected" : "" }}>{{ $coverage }}</option>
+                                    @endforeach
                                 </select>
+                                @error("coverage")
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label><b>Vehicle Brand</b></label>
-                                <select class="form-control" name="vehicleBrand" id="vehicleBrand" required>
-                                    <option disabled>Choose</option>
-                                    <option value="toyota">Toyota</option>
-                                    <option value="honda">Honda</option>
+                                <select
+                                    class="form-control @error("brand") is-invalid @enderror"
+                                    name="brand"
+                                    id="brand"
+                                    required
+                                    onchange="document.getElementById('step').value = {{ $step - 1 }}; document.getElementById('submit').click();"
+                                >
+                                    <option>Choose...</option>
+                                    @foreach($brands as $brand)
+                                        <option
+                                            value="{{ $brand->id }}" {{ $brand->id === old("brand_id", empty($data["brand"]) ? null : (int) $data["brand"]) ? "selected" : "" }}>{{ $brand->name }}</option>
+                                    @endforeach
                                 </select>
+                                @error("brand")
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label><b>Vehicle Model</b></label>
-                                <select class="form-control" name="vehicleModel" id="vehicleModel" required>
-                                    <option disabled>Choose</option>
-                                    <option value="All New Avanza 1.3 E MT">All New Avanza 1.3 E MT</option>
-                                    <option value="All New HR-V S CVT">All New HR-V S CVT</option>
+                                <select
+                                    class="form-control @error("model") is-invalid @enderror"
+                                    name="model"
+                                    id="model"
+                                    required
+                                    onchange="document.getElementById('step').value = {{ $step - 1 }}; document.getElementById('submit').click();"
+                                >
+                                    <option>Choose...</option>
+                                    @foreach($models as $model)
+                                        <option
+                                            value="{{ $model->id }}" {{ $model->id === old("model_id", empty($data["model"]) ? null : (int) $data["model"]) ? "selected" : "" }}>{{ $model->name }}</option>
+                                    @endforeach
                                 </select>
+                                @error("model")
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label><b>Vehicle Type</b></label>
-                                <select class="form-control" name="vehicleType" id="vehicleType" required>
-                                    <option disabled>Choose</option>
-                                    <option value="avanza">Avanza</option>
-                                    <option value="hr-v">HR-V</option>
+                                <select
+                                    class="form-control @error("type") is-invalid @enderror"
+                                    name="type"
+                                    id="type"
+                                    required
+                                    onchange="document.getElementById('step').value = {{ $step - 1 }}; document.getElementById('submit').click();"
+                                >
+                                    <option>Choose...</option>
+                                    @foreach($types as $type)
+                                        <option
+                                            value="{{ $type->id }}" {{ $type->id === old("type_id", empty($data["type"]) ? null : (int) $data["type"]) ? "selected" : "" }}>{{ $type->name }}</option>
+                                    @endforeach
                                 </select>
+                                @error("type")
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label><b>Passenger Seat</b></label>
-                                <input type="text" class="form-control" name="pSeat" id="pSeat"
-                                       placeholder="(Not including driver's seat)" value="5"
-                                       style="background-color: #e9ecef" readonly>
+                                <input type="text" class="form-control" name="seat" id="seat"
+                                       placeholder="(Not including driver's seat)" value="{{ $dataType->seat }}"
+                                       readonly>
                             </div>
 
                             <div class="form-group">
                                 <label><b>Vehicle Built Year</b></label>
-                                <select class="form-control" name="vby" id="vby" required>
-                                    <option selected="selected">2022</option>
-                                    <option value="2022">2023</option>
-                                </select>
+                                <input type="text" class="form-control" name="year" id="year"
+                                       value="{{ $dataType->year }}"
+                                       readonly>
                             </div>
 
                             <div class="form-group">
                                 <label><b>License Plate</b></label>
-                                <select class="form-control" name="plat" id="plat" required>
-                                    <option selected>B</option>
-                                    <option value="A">D</option>
+                                <select class="form-control @error("plat") is-invalid @enderror" name="plat" id="plat" required>
+                                    <option>Choose...</option>
+                                    @foreach($plats as $plat)
+                                        <option
+                                            value="{{ $plat->id }}" {{ $plat->id === old("plat_id", empty($data["plat"]) ? null : (int) $data["plat"]) ? "selected" : "" }}>{{ $plat->plat }}</option>
+                                    @endforeach
                                 </select>
+                                @error("plat")
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
 
                             <div class="form-group">
@@ -234,18 +297,259 @@
                                     <select class="form-control col-1" name="curr" id="curr" aria-expanded="false"
                                             required>
                                         <option selected>IDR</option>
-                                        <option>SGD</option>
-                                        <option>USD</option>
                                     </select>
-                                    <input type="text" class="form-control" name="vsi" id="vsi"
-                                           placeholder="Automatic Input" value="364.900.000">
+                                    <input type="number" class="form-control @error("vsi") is-invalid @enderror" name="vsi" id="vsi"
+                                           placeholder="Automatic Input" value="{{ old("vsi", $dataType->price) }}">
+                                </div>
+                                @error("vsi")
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                    @elseif($step === 4)
+                        <div class="card-body">
+                            <div class="row ms-5 justify-content-around">
+                                <div class="col">
+                                    <img src="{{ asset("dist/img/flood.png") }}" style="width: 24px; height: 24px;"><b>Flood</b>
+                                    <div class="dropdown">
+                                        <select class="form-control w-50" name="flood">
+                                            <option>No</option>
+                                            <option>Yes</option>
+                                        </select>
+                                    </div>
+
+                                    <br>
+
+                                    <img src="{{ asset("dist/img/earthquake.png") }}"
+                                         style="width: 24px; height: 24px;"><b> Earthquake</b>
+                                    <div class="dropdown">
+                                        <select class="form-control w-50" id="earthquake" name="earthquake">
+                                            <option>No</option>
+                                            <option>Yes</option>
+                                        </select>
+                                    </div>
+
+                                    <br>
+
+                                    <img src="{{ asset("dist/img/riot.png") }}" style="width: 24px; height: 24px;"><b>
+                                        SRCC (Strike, Riot, and Civic Commotion)</b>
+                                    <div class="dropdown">
+                                        <select class="form-control w-50" id="srcc" name="srcc">
+                                            <option>No</option>
+                                            <option>Yes</option>
+                                        </select>
+                                    </div>
+
+                                    <br>
+
+                                    <img src="{{ asset("dist/img/tns.png") }}" style="width: 24px; height: 24px;"><b>
+                                        T&S (Terrorism & Sabotage)</b>
+                                    <div class="dropdown">
+                                        <select class="form-control w-50" id="tns" name="tns">
+                                            <option>No</option>
+                                            <option>Yes</option>
+                                        </select>
+                                    </div>
+
+                                    <br>
+
+                                    <b>Others</b>
+                                    <div class="dropdown">
+                                        <select class="form-control w-50" id="others" name="others">
+                                            <option>No</option>
+                                            <option>Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <br>
+
+                                <div class="col">
+                                    <img src="{{ asset("dist/img/legal.png") }}" style="width: 24px; height: 24px;"><b>
+                                        Third Party Liability</b>
+                                    <div class="dropdown">
+                                        <select class="form-control w-50" name="tpl" id="tpl">
+                                            <option value="No">No</option>
+                                            <option value="Yes">Yes</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="input-group mt-2" id="tpl_Input" style="display: none;">
+                                        <div class="me-2">
+                                            <select class="form-control" name="curr" id="curr" aria-expanded="false">
+                                                <option selected>IDR</option>
+                                            </select>
+                                        </div>
+                                        <input type="text" class="form-control" name="tpl_limit"
+                                               placeholder="Enter the vehicle's TPL value" value="">
+                                    </div>
+
+                                    <br>
+
+                                    <img src="{{ asset("dist/img/law.png") }}" style="width: 24px; height: 24px;"><b>
+                                        Third Party Liability to Passenger</b>
+                                    <div class="dropdown">
+                                        <select class="form-control w-50" name="tpl_to_passenger" id="tplPassenger">
+                                            <option value="No">No</option>
+                                            <option value="Yes">Yes</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="input-group mt-2 Yes tplPassenger_Input" id="tplPassenger_Input"
+                                         style="display: none;">
+                                        <div class="me-2">
+                                            <select class="form-control" name="curr" id="curr" aria-expanded="false">
+                                                <option selected>IDR</option>
+                                            </select>
+                                        </div>
+                                        <input type="text" class="form-control" name="tpl_to_passenger_limit"
+                                               placeholder="Enter the TPL to Passenger value" value="">
+                                    </div>
+
+                                    <br>
+
+                                    <img src="{{ asset("dist/img/driver.png") }}" style="width: 20px; height: 20px;"><b>
+                                        Driver's Personal Accident</b>
+                                    <div class="dropdown">
+                                        <select class="form-control w-50" name="dpa" id="driverPA">
+                                            <option value="No">No</option>
+                                            <option value="Yes">Yes</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="input-group mt-2 Yes driverPA_Input" id="driverPA_Input"
+                                         style="display: none;">
+                                        <div class="me-2">
+                                            <select class="form-control" name="curr" id="curr" aria-expanded="false">
+                                                <option selected>IDR</option>
+                                            </select>
+                                        </div>
+                                        <input type="text" class="form-control" name="dpa_limit"
+                                               placeholder="Enter the Driver's PA value" value="">
+                                    </div>
+
+                                    <br>
+
+                                    <img src="{{ asset("dist/img/passenger.png") }}" style="width: 22px; height: 22px;"><b>
+                                        Passenger's Personal Accident</b>
+                                    <div class="dropdown">
+                                        <select class="form-control w-50" name="ppa" id="passengerPA">
+                                            <option value="No">No</option>
+                                            <option value="Yes">Yes</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="input-group mt-2 Yes passengerPA_Input" id="passengerPA_Input"
+                                         style="display: none;">
+                                        <div class="me-2">
+                                            <select class="form-control" name="curr" id="curr" aria-expanded="false">
+                                                <option selected>IDR</option>
+                                            </select>
+                                        </div>
+                                        <input type="text" class="form-control" name="ppa_limit"
+                                               placeholder="Enter the Passenger PA value" value="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @elseif($step === 5)
+                        <div class="card-body">
+                            <div class="">
+                                <h4 class="m-0 fw-bold text-center">Preview</h4>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Customer's Full Name</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["name"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Class Of Business</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["cob"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Address</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["address"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Urban Village (Kelurahan)</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["kelurahan"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Sub District (Kecamatan)</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["kecamatan"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">District/Regency (Kabupaten/Kota)</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["city"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">District/Regency (Kabupaten/Kota)</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["city"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Province</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["province"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Start Date</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["start_date"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">End Date</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["end_date"] }}">
+                                </div>
+                            </div>
+                            <div class="mt-5">
+                                <h4 class="m-0 fw-bold text-center">Vehicle Details</h4>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Main Coverage</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["coverage"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Vehicle Brand</p>
+                                    <input type="text" class="form-control" disabled value="{{ $dataBrand->name }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Vehicle Model</p>
+                                    <input type="text" class="form-control" disabled value="{{ $dataModel->name }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Vehicle Type</p>
+                                    <input type="text" class="form-control" disabled value="{{ $dataType->name }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Passenger Seat</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["seat"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Vehicle Built Year</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["year"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">License Plate</p>
+                                    <input type="text" class="form-control" disabled value="{{ $dataPlat->plat }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Vehicle Sum Insured</p>
+                                    <input type="text" class="form-control" disabled value="Rp {{ number_format($data["vsi"]) }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Total Premium</p>
+                                    <input type="text" class="form-control" disabled value="Rp {{ number_format($data["vsi"] * $rate / 100) }}">
+                                </div>
+                            </div>
+                            <div class="mt-5">
+                                <h4 class="m-0 fw-bold text-center">Upload Vehicle Details</h4>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Upload PDF File</p>
+                                    <input type="file" class="form-control" accept="application/pdf">
                                 </div>
                             </div>
                         </div>
                     @endif
                     <div class="card-footer">
                         <div class="button-row d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary">Next</button>
+                            <button type="submit" id="submit" class="btn btn-primary">Next</button>
                         </div>
                     </div>
                 </form>
@@ -256,6 +560,42 @@
 
 @section("script")
     <script>
-        $('#reservation').daterangepicker()
+        $("#reservation").daterangepicker();
+
+        let select = document.getElementById("tpl");
+        select.onchange = function () {
+            if (select.value === "Yes") {
+                document.getElementById("tpl_Input").style.display = "";
+            } else {
+                document.getElementById("tpl_Input").style.display = "none";
+            }
+        }
+
+        let tplPassenger = document.getElementById("tplPassenger");
+        tplPassenger.onchange = function () {
+            if (tplPassenger.value === "Yes") {
+                document.getElementById("tplPassenger_Input").style.display = "";
+            } else {
+                document.getElementById("tplPassenger_Input").style.display = "none";
+            }
+        }
+
+        let driverPA = document.getElementById("driverPA");
+        driverPA.onchange = function () {
+            if (driverPA.value === "Yes") {
+                document.getElementById("driverPA_Input").style.display = "";
+            } else {
+                document.getElementById("driverPA_Input").style.display = "none";
+            }
+        }
+
+        let passengerPA = document.getElementById("passengerPA");
+        passengerPA.onchange = function () {
+            if (passengerPA.value === "Yes") {
+                document.getElementById("passengerPA_Input").style.display = "";
+            } else {
+                document.getElementById("passengerPA_Input").style.display = "none";
+            }
+        }
     </script>
 @endsection

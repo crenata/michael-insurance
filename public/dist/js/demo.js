@@ -10,7 +10,7 @@
 (function ($) {
   'use strict'
 
-  
+
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1)
@@ -356,7 +356,7 @@
       $('.brand-link').removeClass('text-sm')
     }
   })
-  var $text_sm_brand_container = $('<div />', { class: 'mb-1' }).append($text_sm_brand_checkbox).append('<span>Brand</span>')
+  var $text_sm_brand_container = $('<div />', { class: 'mb-1' }).append($text_sm_brand_checkbox).append('<span>VehicleBrand</span>')
   $container.append($text_sm_brand_container)
 
   var $text_sm_sidebar_checkbox = $('<input />', {
@@ -638,7 +638,7 @@
   }
 
   var logo_skins = navbar_all_colors
-  $container.append('<h6>Brand Logo Variants</h6>')
+  $container.append('<h6>VehicleBrand Logo Variants</h6>')
   var $logo_variants = $('<div />', {
     class: 'd-flex'
   })

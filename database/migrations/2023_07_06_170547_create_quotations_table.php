@@ -27,6 +27,7 @@ return new class extends Migration
             $table->unsignedBigInteger("vehicle_type_id");
             $table->unsignedBigInteger("plat_id");
             $table->unsignedBigInteger("vsi");
+            $table->unsignedDouble("total_premium");
             $table->string("flood");
             $table->string("earthquake");
             $table->string("srcc");
@@ -40,6 +41,7 @@ return new class extends Migration
             $table->unsignedBigInteger("dpa_limit")->nullable();
             $table->string("ppa");
             $table->unsignedBigInteger("ppa_limit")->nullable();
+            $table->string("file");
             $table->timestamps();
 
             $table->foreign("vehicle_type_id")->references("id")->on("vehicle_types")->onDelete("cascade");

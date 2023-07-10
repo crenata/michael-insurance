@@ -57,7 +57,7 @@
                         @endif
                     </h3>
                 </div>
-                <form method="POST" action="{{ route("broker.quotation." . ($step === 5 ? "store" : "next")) }}">
+                <form method="POST" action="{{ route("broker.quotation." . ($step === 5 ? "store" : "next")) }}" enctype="multipart/form-data">
                     @csrf
 
                     <input type="number" name="step" id="step" value="{{ $step }}" class="d-none">
@@ -542,7 +542,67 @@
                                 <h4 class="m-0 fw-bold text-center">Upload Vehicle Details</h4>
                                 <div class="mt-3">
                                     <p class="m-0 fw-bold">Upload PDF File</p>
-                                    <input type="file" class="form-control" accept="application/pdf">
+                                    <input type="file" name="file" class="form-control @error("file") is-invalid @enderror" accept="application/pdf" required>
+                                    @error("file")
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="mt-5">
+                                <h4 class="m-0 fw-bold text-center">Additional Benefit</h4>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Flood</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["flood"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Earthquake</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["earthquake"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">SRCC (Strike, Riot, and Civic Commotion)</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["srcc"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">T&S (Terrorism & Sabotage)</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["tns"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Others</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["others"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Third Party Liability</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["tpl"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Third Party Liability (Value)</p>
+                                    <input type="text" class="form-control" disabled value="Rp {{ number_format($data["tpl_limit"]) }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Third Party Liability to Passenger</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["tpl_to_passenger"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Third Party Liability to Passenger (Value)</p>
+                                    <input type="text" class="form-control" disabled value="Rp {{ number_format($data["tpl_to_passenger_limit"]) }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Driver's Personal Accident</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["dpa"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Driver's Personal Accident (Value)</p>
+                                    <input type="text" class="form-control" disabled value="Rp {{ number_format($data["dpa_limit"]) }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Passenger's Personal Accident</p>
+                                    <input type="text" class="form-control" disabled value="{{ $data["ppa"] }}">
+                                </div>
+                                <div class="mt-3">
+                                    <p class="m-0 fw-bold">Passenger's Personal Accident (Value)</p>
+                                    <input type="text" class="form-control" disabled value="Rp {{ number_format($data["ppa_limit"]) }}">
                                 </div>
                             </div>
                         </div>

@@ -28,6 +28,7 @@ class Quotation extends Model {
         "vehicle_type_id",
         "plat_id",
         "vsi",
+        "total_premium",
         "flood",
         "earthquake",
         "srcc",
@@ -41,9 +42,14 @@ class Quotation extends Model {
         "dpa_limit",
         "ppa",
         "ppa_limit",
+        "file",
         "created_at",
         "updated_at"
     ];
+
+    public function getFileAttribute() {
+        return env("APP_URL") . "/storage/quotations/" . $this->attributes["file"];
+    }
 
     public function vehicleType() {
         return $this->belongsTo(VehicleType::class, "vehicle_type_id");

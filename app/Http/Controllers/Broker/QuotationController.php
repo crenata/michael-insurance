@@ -26,10 +26,6 @@ class QuotationController extends Controller {
         //
     }
 
-    public function rejected() {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -227,6 +223,8 @@ class QuotationController extends Controller {
             $counter->counter++;
             $counter->save();
             $request->request->set("no_quotation", $year . sprintf("%02d", $branchId) . sprintf("%04d", $counter->counter));
+            $request->request->set("status", "Transfer to UW");
+            $request->request->set("modifier_id", auth()->id());
             Quotation::create($request->all());
 
             return redirect()->route("broker.quotation.index")->withStatus("Successfully added.");

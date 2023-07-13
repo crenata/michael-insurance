@@ -43,6 +43,8 @@ class Quotation extends Model {
         "ppa",
         "ppa_limit",
         "file",
+        "status",
+        "modifier_id",
         "created_at",
         "updated_at"
     ];
@@ -57,5 +59,9 @@ class Quotation extends Model {
 
     public function plat() {
         return $this->belongsTo(Plat::class, "plat_id");
+    }
+
+    public function modifier() {
+        return $this->belongsTo(User::class, "modifier_id");
     }
 }

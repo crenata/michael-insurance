@@ -13,63 +13,25 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3><sup style="font-size: 25px">Create Quotation</sup></h3>
-                    <p>Creating a new quotation</p>
+                    <h3><sup style="font-size: 25px">Issue Policy</sup></h3>
+                    <p>Issuing policies</p>
                 </div>
                 <div class="icon">
                     <i class="ion-android-create"></i>
                 </div>
-                <a href="{{ route("broker.quotation.create") }}" class="small-box-footer"><i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route("policy.quotation.review") }}" class="small-box-footer"><i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <div class="col-lg-3 col-6">
             <div class="small-box bg-success">
                 <div class="inner">
-                    <h3><sup style="font-size: 25px">View Created Quotation</sup></h3>
-                    <p>View quotations that has been made</p>
+                    <h3><sup style="font-size: 25px">View Quotation Flow</sup></h3>
+                    <p>View quotation's journey</p>
                 </div>
                 <div class="icon">
                     <i class="ion-ios-grid-view"></i>
                 </div>
                 <a href="{{ route("quotation.created") }}" class="small-box-footer"><i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-6">
-            <div class="small-box bg-danger">
-                <div class="inner">
-                    <h3><sup style="font-size: 25px">View Rejected Quotations</sup></h3>
-                    <p>View quotations that has been rejected</p>
-                </div>
-                <div class="icon">
-                    <i class="ion-android-delete"></i>
-                </div>
-                <a href="{{ route("quotation.rejected") }}" class="small-box-footer"><i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-3 col-6">
-            <div class="small-box bg-secondary">
-                <div class="inner">
-                    <h3><sup style="font-size: 25px">Add Discount</sup></h3>
-                    <p>Add products discount</p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-pie-graph"></i>
-                </div>
-                <a href="#" class="small-box-footer"><i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-6">
-            <div class="small-box bg-primary">
-                <div class="inner">
-                    <h3><sup style="font-size: 25px">Traffic Graph</sup></h3>
-                    <p>View how many data has been made in graphs</p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-pie-graph"></i>
-                </div>
-                <a href="#" class="small-box-footer"><i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
     </div>
@@ -157,7 +119,6 @@
                     </div>
                 </div>
                 <div class="card-footer clearfix">
-                    <a href="{{ route("broker.quotation.create") }}" class="btn btn-sm btn-info float-left">Add New Quotation</a>
                     <a href="{{ route("quotation.created") }}" class="btn btn-sm btn-secondary float-right">View All Quotation</a>
                 </div>
             </div>

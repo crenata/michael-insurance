@@ -42,10 +42,13 @@ return new class extends Migration
             $table->string("ppa");
             $table->unsignedBigInteger("ppa_limit")->nullable();
             $table->string("file");
+            $table->string("status");
+            $table->unsignedBigInteger("modifier_id");
             $table->timestamps();
 
             $table->foreign("vehicle_type_id")->references("id")->on("vehicle_types")->onDelete("cascade");
             $table->foreign("plat_id")->references("id")->on("plats")->onDelete("cascade");
+            $table->foreign("modifier_id")->references("id")->on("users")->onDelete("cascade");
         });
     }
 

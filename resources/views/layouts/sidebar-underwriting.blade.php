@@ -9,42 +9,18 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route("broker.quotation.create") }}" class="nav-link {{ Route::is("broker.quotation.create") ? "active" : "" }}">
+            <a href="{{ route("underwriting.quotation.review") }}" class="nav-link {{ Route::is("underwriting.quotation.review") ? "active" : "" }}">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
-                    Create Quotation
+                    Review Quotation
                 </p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route("quotation.created") }}" class="nav-link {{ Route::is("quotation.created") ? "active" : "" }}">
+            <a href="{{ route("quotation.flow") }}" class="nav-link {{ Route::is("quotation.flow") ? "active" : "" }}">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
-                    View Created Quotation
-                </p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route("quotation.rejected") }}" class="nav-link {{ Route::is("quotation.rejected") ? "active" : "" }}">
-                <i class="nav-icon fas fa-chart-pie"></i>
-                <p>
-                    View Rejected Quotation
-                </p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="addDiscount.php" class="nav-link">
-                <i class="nav-icon fas fa-edit"></i>
-                <p>
-                    Add Discount
-                </p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="trafficGraph.php" class="nav-link">
-                <i class="nav-icon fas fa-table"></i>
-                <p>
-                    Traffic Graph
+                    View Quotation Flow
                 </p>
             </a>
         </li>

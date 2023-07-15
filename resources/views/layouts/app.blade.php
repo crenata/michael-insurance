@@ -168,6 +168,7 @@
     <script src="{{ asset("plugins/datatables-buttons/js/buttons.html5.min.js") }}"></script>
     <script src="{{ asset("plugins/datatables-buttons/js/buttons.print.min.js") }}"></script>
     <script src="{{ asset("plugins/datatables-buttons/js/buttons.colVis.min.js") }}"></script>
+    <script src="{{ asset("plugins/chart.js/Chart.min.js") }}"></script>
 
     <script>
         $(function() {

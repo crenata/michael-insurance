@@ -9,11 +9,27 @@ use Illuminate\Http\Request;
 class QuotationController extends Controller {
     public function review() {
         $quotations = Quotation::with("modifier")
-            ->where("status", "Approved to UW")
+            ->where("status", "Approved by UW")
             ->orderByDesc("updated_at")
             ->get();
         return view("quotation.view")
             ->withQuotations($quotations)
             ->withTitle("Issue Policy");
+    }
+
+    public function delete(Request $request, $id) {
+        Quotation::findOrFail($id)->update([
+            "status" => "Deleted",
+            "modifier_id" => auth()->id()
+        ]);
+        return back();
+    }
+
+    public function issue(Request $request, $id) {
+        Quotation::findOrFail($id)->update([
+            "status" => "Issued",
+            "modifier_id" => auth()->id()
+        ]);
+        return back();
     }
 }

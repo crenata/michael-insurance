@@ -16,4 +16,20 @@ class QuotationController extends Controller {
             ->withQuotations($quotations)
             ->withTitle("Review Quotation");
     }
+
+    public function reject(Request $request, $id) {
+        Quotation::findOrFail($id)->update([
+            "status" => "Rejected by UW",
+            "modifier_id" => auth()->id()
+        ]);
+        return back();
+    }
+
+    public function accept(Request $request, $id) {
+        Quotation::findOrFail($id)->update([
+            "status" => "Approved by UW",
+            "modifier_id" => auth()->id()
+        ]);
+        return back();
+    }
 }

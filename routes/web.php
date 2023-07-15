@@ -22,6 +22,7 @@ Auth::routes();
 
 Route::middleware("auth")->group(function () {
     Route::get("home", [App\Http\Controllers\HomeController::class, "index"])->name("home");
+    Route::get("chart", [App\Http\Controllers\HomeController::class, "chart"])->name("chart");
 
     Route::prefix("quotation")->group(function () {
         Route::get("flow", [\App\Http\Controllers\HomeController::class, "flow"])->name("quotation.flow");
@@ -35,15 +36,20 @@ Route::middleware("auth")->group(function () {
             Route::get("next", [\App\Http\Controllers\Broker\QuotationController::class, "next"])->name("broker.quotation.next");
             Route::post("next", [\App\Http\Controllers\Broker\QuotationController::class, "next"])->name("broker.quotation.next");
         });
+        Route::resource("discount", \App\Http\Controllers\Broker\DiscountController::class)->names("broker.discount");
     });
     Route::prefix("underwriting")->group(function () {
         Route::prefix("quotation")->group(function () {
             Route::get("review", [\App\Http\Controllers\Underwriting\QuotationController::class, "review"])->name("underwriting.quotation.review");
+            Route::get("reject/{id}", [\App\Http\Controllers\Underwriting\QuotationController::class, "reject"])->name("underwriting.quotation.reject");
+            Route::get("accept/{id}", [\App\Http\Controllers\Underwriting\QuotationController::class, "accept"])->name("underwriting.quotation.accept");
         });
     });
     Route::prefix("policy")->group(function () {
         Route::prefix("quotation")->group(function () {
             Route::get("review", [\App\Http\Controllers\Policy\QuotationController::class, "review"])->name("policy.quotation.review");
+            Route::get("delete/{id}", [\App\Http\Controllers\Policy\QuotationController::class, "delete"])->name("policy.quotation.delete");
+            Route::get("issue/{id}", [\App\Http\Controllers\Policy\QuotationController::class, "issue"])->name("policy.quotation.issue");
         });
     });
 });

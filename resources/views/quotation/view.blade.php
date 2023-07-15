@@ -27,6 +27,11 @@
                             <th>Premium Total</th>
                             <th>Status</th>
                             <th>Last Processed By</th>
+                            @if(Route::is("underwriting.quotation.review") || Route::is("policy.quotation.review"))
+                                @if(auth()->user()->type !== "broker")
+                                    <th>Action</th>
+                                @endif
+                            @endif
                         </tr>
                         </thead>
                         <tbody>
@@ -43,6 +48,19 @@
                                 <td>{{ number_format($quotation->total_premium) }}</td>
                                 <td>{{ $quotation->status }}</td>
                                 <td>{{ $quotation->modifier->email }}</td>
+                                @if(Route::is("underwriting.quotation.review") || Route::is("policy.quotation.review"))
+                                    @if(auth()->user()->type === "underwriting")
+                                        <td>
+                                            <a href="{{ route("underwriting.quotation.reject", $quotation->id) }}" class="btn btn-danger">Reject</a>
+                                            <a href="{{ route("underwriting.quotation.accept", $quotation->id) }}" class="btn btn-primary mt-1">Accept</a>
+                                        </td>
+                                    @elseif(auth()->user()->type === "policy")
+                                        <td>
+                                            <a href="{{ route("policy.quotation.delete", $quotation->id) }}" class="btn btn-danger">Delete</a>
+                                            <a href="{{ route("policy.quotation.issue", $quotation->id) }}" class="btn btn-primary mt-1">Issue</a>
+                                        </td>
+                                    @endif
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>
@@ -59,6 +77,11 @@
                             <th>Premium Total</th>
                             <th>Status</th>
                             <th>Last Processed By</th>
+                            @if(Route::is("underwriting.quotation.review") || Route::is("policy.quotation.review"))
+                                @if(auth()->user()->type !== "broker")
+                                    <th>Action</th>
+                                @endif
+                            @endif
                         </tr>
                         </tfoot>
                     </table>

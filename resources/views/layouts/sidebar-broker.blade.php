@@ -33,7 +33,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="addDiscount.php" class="nav-link">
+            <a href="{{ route("broker.discount.create") }}" class="nav-link">
                 <i class="nav-icon fas fa-edit"></i>
                 <p>
                     Add Discount
@@ -41,7 +41,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="trafficGraph.php" class="nav-link">
+            <a href="{{ route("chart") }}" class="nav-link">
                 <i class="nav-icon fas fa-table"></i>
                 <p>
                     Traffic Graph

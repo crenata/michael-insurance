@@ -96,62 +96,23 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                                <td>Michael</td>
-                                <td>
-                                    <div class="sparkbar" data-color="#00a65a" data-height="20">Motor Vehicle</div>
-                                </td>
-                                <td><span class="badge badge-success">Shipped</span></td>
-                            </tr>
-                            <tr>
-                                <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                                <td>Brian</td>
-                                <td>
-                                    <div class="sparkbar" data-color="#f39c12" data-height="20">Motor Vehicle</div>
-                                </td>
-                                <td><span class="badge badge-warning">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                                <td>Dodit</td>
-                                <td>
-                                    <div class="sparkbar" data-color="#f56954" data-height="20">Fire</div>
-                                </td>
-                                <td><span class="badge badge-danger">Delivered</span></td>
-                            </tr>
-                            <tr>
-                                <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                                <td>Amir</td>
-                                <td>
-                                    <div class="sparkbar" data-color="#00c0ef" data-height="20">Motor Vehicle</div>
-                                </td>
-                                <td><span class="badge badge-info">Processing</span></td>
-                            </tr>
-                            <tr>
-                                <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                                <td>Selya</td>
-                                <td>
-                                    <div class="sparkbar" data-color="#f39c12" data-height="20">Motor Vehicle</div>
-                                </td>
-                                <td><span class="badge badge-warning">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                                <td>John</td>
-                                <td>
-                                    <div class="sparkbar" data-color="#f56954" data-height="20">Fire</div>
-                                </td>
-                                <td><span class="badge badge-danger">Delivered</span></td>
-                            </tr>
-                            <tr>
-                                <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                                <td>Wanda</td>
-                                <td>
-                                    <div class="sparkbar" data-color="#00a65a" data-height="20">Motor Vehicle</div>
-                                </td>
-                                <td><span class="badge badge-success">Shipped</span></td>
-                            </tr>
+                            @foreach($quotations as $quotation)
+                                <tr>
+                                    <td>{{ $quotation->no_quotation }}</td>
+                                    <td>{{ $quotation->name }}</td>
+                                    <td>{{ $quotation->cob }}</td>
+                                    <td>
+                                        <span class="badge
+                                        @if($quotation->status === "Transfer to UW") badge-info
+                                        @elseif($quotation->status === "Rejected by UW") badge-warning
+                                        @elseif($quotation->status === "Approved by UW") badge-success
+                                        @elseif($quotation->status === "Deleted") badge-danger
+                                        @elseif($quotation->status === "Issued") badge-primary
+                                        @endif"
+                                        >{{ $quotation->status }}</span>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

@@ -36,8 +36,9 @@ class HomeController extends Controller {
 
     public function chart() {
         $quotations = Quotation::selectRaw(implode(",", [
-            "date_format(updated_at, '%M') as label", /*mysql*/
-            //"to_char(updated_at, 'Mon') as label", /*postgresql*/
+            env("DB_CONNECTION") === "mysql" ?
+                "date_format(updated_at, '%M') as label" /*mysql*/ :
+                "to_char(updated_at, 'Mon') as label" /*postgresql*/,
             "extract(month from updated_at) as month",
             "extract(year from updated_at) as year",
             "count(1) filter (where status = 'Issued') as issued",

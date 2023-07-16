@@ -225,9 +225,13 @@ class QuotationController extends Controller {
             $request->request->set("no_quotation", $year . sprintf("%02d", $branchId) . sprintf("%04d", $counter->counter));
             $request->request->set("status", "Transfer to UW");
             $request->request->set("modifier_id", auth()->id());
+            $request->request->replace(array_merge($request->all(), [
+                "start_date" => Carbon::parse($request->start_date),
+                "end_date" => Carbon::parse($request->end_date)
+            ]));
             Quotation::create($request->all());
 
-            return redirect()->route("broker.quotation.index")->withStatus("Successfully added.");
+            return redirect()->route("quotation.created")->withStatus("Successfully added.");
         });
     }
 

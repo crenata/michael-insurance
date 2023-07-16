@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Branch;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -53,6 +54,8 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'type' => ['required', 'string'],
+            'branch_id' => ['required', 'numeric', 'exists:branches,id'],
         ]);
     }
 
@@ -68,6 +71,14 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'type' => $data['type'],
+            'branch_id' => $data['branch_id']
         ]);
+    }
+
+    public function showRegistrationForm()
+    {
+        $branches = Branch::all();
+        return view('auth.register')->withBranches($branches);
     }
 }

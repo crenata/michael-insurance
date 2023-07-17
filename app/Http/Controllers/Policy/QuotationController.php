@@ -17,14 +17,6 @@ class QuotationController extends Controller {
             ->withTitle("Issue Policy");
     }
 
-    public function delete(Request $request, $id) {
-        Quotation::findOrFail($id)->update([
-            "status" => "Deleted",
-            "modifier_id" => auth()->id()
-        ]);
-        return back();
-    }
-
     public function issue(Request $request, $id) {
         Quotation::findOrFail($id)->update([
             "status" => "Issued",

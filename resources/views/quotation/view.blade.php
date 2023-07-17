@@ -27,10 +27,8 @@
                             <th>Premium Total</th>
                             <th>Status</th>
                             <th>Last Processed By</th>
-                            @if(Route::is("underwriting.quotation.review") || Route::is("policy.quotation.review"))
-                                @if(auth()->user()->type !== "broker")
-                                    <th>Action</th>
-                                @endif
+                            @if(Route::is("underwriting.quotation.review") || Route::is("policy.quotation.review") || Route::is("quotation.rejected"))
+                                <th>Action</th>
                             @endif
                         </tr>
                         </thead>
@@ -40,7 +38,7 @@
                                 <td><button type="button" class="btn btn-block btn-primary">{{ $quotation->no_quotation }}</button></td>
                                 <td>{{ $quotation->name }}</td>
                                 <td>{{ \Illuminate\Support\Carbon::parse($quotation->created_at)->format("Y-m-d") }}</td>
-                                <td>{{ \Illuminate\Support\Carbon::parse($quotation->created_at)->addYear()->format("Y-m-d") }}</td>
+                                <td>{{ \Illuminate\Support\Carbon::parse($quotation->start_date)->format("Y-m-d") }} - {{ \Illuminate\Support\Carbon::parse($quotation->end_date)->format("Y-m-d") }}</td>
                                 <td>{{ $quotation->address }}</td>
                                 <td>{{ $quotation->cob }}</td>
                                 <td>IDR</td>
@@ -48,15 +46,18 @@
                                 <td>{{ number_format($quotation->total_premium) }}</td>
                                 <td>{{ $quotation->status }}</td>
                                 <td>{{ $quotation->modifier->email }}</td>
-                                @if(Route::is("underwriting.quotation.review") || Route::is("policy.quotation.review"))
-                                    @if(auth()->user()->type === "underwriting")
+                                @if(Route::is("underwriting.quotation.review") || Route::is("policy.quotation.review") || Route::is("quotation.rejected"))
+                                    @if(auth()->user()->type === "broker" && $quotation->status === "Rejected by UW")
+                                        <td>
+                                            <a href="{{ route("broker.quotation.delete", $quotation->id) }}" class="btn btn-danger">Delete</a>
+                                        </td>
+                                    @elseif(auth()->user()->type === "underwriting")
                                         <td>
                                             <a href="{{ route("underwriting.quotation.reject", $quotation->id) }}" class="btn btn-danger">Reject</a>
                                             <a href="{{ route("underwriting.quotation.accept", $quotation->id) }}" class="btn btn-primary mt-1">Accept</a>
                                         </td>
                                     @elseif(auth()->user()->type === "policy")
                                         <td>
-                                            <a href="{{ route("policy.quotation.delete", $quotation->id) }}" class="btn btn-danger">Delete</a>
                                             <a href="{{ route("policy.quotation.issue", $quotation->id) }}" class="btn btn-primary mt-1">Issue</a>
                                         </td>
                                     @endif
@@ -77,10 +78,8 @@
                             <th>Premium Total</th>
                             <th>Status</th>
                             <th>Last Processed By</th>
-                            @if(Route::is("underwriting.quotation.review") || Route::is("policy.quotation.review"))
-                                @if(auth()->user()->type !== "broker")
-                                    <th>Action</th>
-                                @endif
+                            @if(Route::is("underwriting.quotation.review") || Route::is("policy.quotation.review") || Route::is("quotation.rejected"))
+                                <th>Action</th>
                             @endif
                         </tr>
                         </tfoot>

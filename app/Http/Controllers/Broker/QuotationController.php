@@ -8,6 +8,7 @@ use App\Models\Counter;
 use App\Models\CoverageRate;
 use App\Models\Plat;
 use App\Models\Quotation;
+use App\Models\QuotationFile;
 use App\Models\TsiRate;
 use App\Models\VehicleBrand;
 use App\Models\VehicleModel;
@@ -19,16 +20,6 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class QuotationController extends Controller {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index() {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create() {
         return view("broker.quotation.add")->withData(0)->withStep(1);
     }
@@ -160,9 +151,6 @@ class QuotationController extends Controller {
             ->withMessage($message);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request) {
         $request->merge(empty($request->data) ? [] : json_decode($request->data, true));
         $request->request->set("vehicle_brand_id", $request->integer("brand"));
@@ -204,13 +192,13 @@ class QuotationController extends Controller {
             "dpa_limit" => "nullable|numeric|min:1",
             "ppa" => ["required", "string", Rule::in(["No", "Yes"])],
             "ppa_limit" => "nullable|numeric|min:1",
-            "file" => "required|file"
+            "files" => "required|array",
+            "files.*" => "required|file|image"
         ]);
 
         return DB::transaction(function () use ($request) {
-            $file = StorageHelper::save($request, "file", "quotations");
-            $request->request->remove("file");
-            $request->request->set("file", $file);
+            $files = $request->file("files");
+            $request->request->remove("files");
             $year = Carbon::now()->year;
             $branchId = auth()->user()->branch_id;
             $counter = Counter::where("year", $year)->where("branch_id", $branchId)->first();
@@ -229,37 +217,24 @@ class QuotationController extends Controller {
                 "start_date" => Carbon::parse($request->start_date),
                 "end_date" => Carbon::parse($request->end_date)
             ]));
-            Quotation::create($request->all());
+            $quotation = Quotation::create($request->all());
+
+            foreach ($files as $key => $file) {
+                QuotationFile::create([
+                    "quotation_id" => $quotation->id,
+                    "file" => StorageHelper::save($request, "files.$key", "quotations")
+                ]);
+            }
 
             return redirect()->route("quotation.created")->withStatus("Successfully added.");
         });
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id) {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id) {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id) {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id) {
-        //
+    public function delete(Request $request, $id) {
+        Quotation::findOrFail($id)->update([
+            "status" => "Deleted",
+            "modifier_id" => auth()->id()
+        ]);
+        return back();
     }
 }

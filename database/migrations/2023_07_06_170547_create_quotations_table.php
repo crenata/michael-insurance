@@ -41,7 +41,6 @@ return new class extends Migration
             $table->unsignedBigInteger("dpa_limit")->nullable();
             $table->string("ppa");
             $table->unsignedBigInteger("ppa_limit")->nullable();
-            $table->string("file");
             $table->string("status");
             $table->unsignedBigInteger("modifier_id");
             $table->timestamps();

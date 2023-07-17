@@ -41,8 +41,12 @@ class HomeController extends Controller {
                 "to_char(updated_at, 'Mon') as label" /*postgresql*/,
             "extract(month from updated_at) as month",
             "extract(year from updated_at) as year",
-            "count(1) filter (where status = 'Issued') as issued",
-            "count(1) filter (where status = 'Deleted') as deleted"
+            env("DB_CONNECTION") === "mysql" ?
+                "count(case status when 'Issued' then 1 else 0 end) as issued" /*mysql*/ :
+                "count(1) filter (where status = 'Issued') as issued" /*postgresql*/ ,
+            env("DB_CONNECTION") === "mysql" ?
+                "count(case status when 'Deleted' then 1 else 0 end) as issued" /*mysql*/ :
+                "count(1) filter (where status = 'Deleted') as deleted" /*postgresql*/
         ]))->whereRaw(implode(",", [
             "extract(year from updated_at) = " . Carbon::now()->year
         ]))

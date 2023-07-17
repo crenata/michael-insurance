@@ -32,9 +32,11 @@ Route::middleware("auth")->group(function () {
 
     Route::prefix("broker")->group(function () {
         Route::prefix("quotation")->group(function () {
-            Route::resource("/", \App\Http\Controllers\Broker\QuotationController::class)->names("broker.quotation");
+            Route::get("create", [\App\Http\Controllers\Broker\QuotationController::class, "create"])->name("broker.quotation.create");
+            Route::post("store", [\App\Http\Controllers\Broker\QuotationController::class, "store"])->name("broker.quotation.store");
             Route::get("next", [\App\Http\Controllers\Broker\QuotationController::class, "next"])->name("broker.quotation.next");
             Route::post("next", [\App\Http\Controllers\Broker\QuotationController::class, "next"])->name("broker.quotation.next");
+            Route::get("delete/{id}", [\App\Http\Controllers\Broker\QuotationController::class, "delete"])->name("broker.quotation.delete");
         });
         Route::resource("discount", \App\Http\Controllers\Broker\DiscountController::class)->names("broker.discount");
     });
@@ -48,7 +50,6 @@ Route::middleware("auth")->group(function () {
     Route::prefix("policy")->group(function () {
         Route::prefix("quotation")->group(function () {
             Route::get("review", [\App\Http\Controllers\Policy\QuotationController::class, "review"])->name("policy.quotation.review");
-            Route::get("delete/{id}", [\App\Http\Controllers\Policy\QuotationController::class, "delete"])->name("policy.quotation.delete");
             Route::get("issue/{id}", [\App\Http\Controllers\Policy\QuotationController::class, "issue"])->name("policy.quotation.issue");
         });
     });

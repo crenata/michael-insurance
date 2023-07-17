@@ -542,8 +542,8 @@
                                 <h4 class="m-0 fw-bold text-center">Upload Vehicle Details</h4>
                                 <div class="mt-3">
                                     <p class="m-0 fw-bold">Upload PDF File</p>
-                                    <input type="file" name="file" class="form-control @error("file") is-invalid @enderror" accept="application/pdf" required>
-                                    @error("file")
+                                    <input type="file" name="files[]" multiple class="form-control @error("files") is-invalid @enderror" accept="application/pdf" required>
+                                    @error("files")
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -620,7 +620,13 @@
 
 @section("script")
     <script>
-        $("#reservation").daterangepicker();
+        let today = new Date();
+        let endDate = new Date();
+        endDate.setFullYear(endDate.getFullYear() + 1);
+        $("#reservation").daterangepicker({
+            startData: today,
+            endDate: endDate
+        });
 
         let select = document.getElementById("tpl");
         select.onchange = function () {

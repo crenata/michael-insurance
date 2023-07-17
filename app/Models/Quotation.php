@@ -42,16 +42,11 @@ class Quotation extends Model {
         "dpa_limit",
         "ppa",
         "ppa_limit",
-        "file",
         "status",
         "modifier_id",
         "created_at",
         "updated_at"
     ];
-
-    public function getFileAttribute() {
-        return env("APP_URL") . "/storage/quotations/" . $this->attributes["file"];
-    }
 
     public function vehicleType() {
         return $this->belongsTo(VehicleType::class, "vehicle_type_id");
@@ -63,5 +58,9 @@ class Quotation extends Model {
 
     public function modifier() {
         return $this->belongsTo(User::class, "modifier_id");
+    }
+
+    public function files() {
+        return $this->hasMany(QuotationFile::class, "quotation_id");
     }
 }

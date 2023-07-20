@@ -80,7 +80,9 @@
                             <img src="{{ asset("dist/img/user2-160x160.jpg") }}" class="img-circle elevation-2" alt="User Image">
                         </div>
                         <div class="info">
-                            <a href="#" class="d-block">{{ auth()->user()->name }}</a>
+                            @auth
+                                <a href="#" class="d-block">{{ auth()->user()->name }}</a>
+                            @endauth
                         </div>
                     </div>
 
@@ -95,13 +97,15 @@
                         </div>
                     </div>
 
-                    @if(auth()->user()->type === "broker")
-                        @include("layouts.sidebar-broker")
-                    @elseif(auth()->user()->type === "underwriting")
-                        @include("layouts.sidebar-underwriting")
-                    @else
-                        @include("layouts.sidebar-policy")
-                    @endif
+                    @auth
+                        @if(auth()->user()->type === "broker")
+                            @include("layouts.sidebar-broker")
+                        @elseif(auth()->user()->type === "underwriting")
+                            @include("layouts.sidebar-underwriting")
+                        @else
+                            @include("layouts.sidebar-policy")
+                        @endif
+                    @endauth
                 </div>
             </aside>
 

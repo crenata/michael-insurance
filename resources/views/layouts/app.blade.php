@@ -98,7 +98,9 @@
                     </div>
 
                     @auth
-                        @if(auth()->user()->type === "broker")
+                        @if(auth()->user()->type === "admin")
+                            @include("layouts.sidebar-admin")
+                        @elseif(auth()->user()->type === "broker")
                             @include("layouts.sidebar-broker")
                         @elseif(auth()->user()->type === "underwriting")
                             @include("layouts.sidebar-underwriting")

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Quotation;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -14,9 +15,15 @@ class HomeController extends Controller {
      */
     public function index() {
         $quotations = Quotation::with("modifier")->orderByDesc("updated_at")->limit(7)->get();
-        if (auth()->user()->type === "broker") return view("broker.home")->withQuotations($quotations);
+        if (auth()->user()->type === "admin") return view("admin.home")->withQuotations($quotations);
+        else if (auth()->user()->type === "broker") return view("broker.home")->withQuotations($quotations);
         else if (auth()->user()->type === "underwriting") return view("underwriting.home")->withQuotations($quotations);
         else return view("policy.home")->withQuotations($quotations);
+    }
+
+    public function users() {
+        $users = User::with("branch")->orderBy("name")->get();
+        return view("admin.user.view")->withUsers($users);
     }
 
     public function flow() {

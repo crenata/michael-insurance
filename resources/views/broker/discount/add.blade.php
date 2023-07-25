@@ -82,7 +82,7 @@
                 @enderror
             </div>
             <div class="row justify-content-center">
-                <button type="submit" class="btn btn-primary discountAdd">Add</button>
+                <button type="submit" class="btn btn-primary">Add</button>
             </div>
         </form>
     </div>

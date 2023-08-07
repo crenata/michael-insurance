@@ -154,7 +154,7 @@
                         pointStrokeColor: 'rgba(60,141,188,1)',
                         pointHighlightFill: '#fff',
                         pointHighlightStroke: 'rgba(60,141,188,1)',
-                        data: {!! json_encode($issued) !!}
+                        data: {!! json_encode($deleted) !!}
                     },
                     {
                         label: 'Issued',
@@ -165,7 +165,7 @@
                         pointStrokeColor: '#c1c7d1',
                         pointHighlightFill: '#fff',
                         pointHighlightStroke: 'rgba(220,220,220,1)',
-                        data: {!! json_encode($deleted) !!}
+                        data: {!! json_encode($issued) !!}
                     },
                 ]
             };
@@ -194,12 +194,9 @@
                 options: areaChartOptions
             });
 
-            let lineChartCanvas = $('#lineChart').get(0).getContext('2d')
-            let lineChartOptions = $.extend(true, {}, areaChartOptions)
-            let lineChartData = $.extend(true, {}, areaChartData)
-            lineChartData.datasets[0].fill = false;
-            lineChartData.datasets[1].fill = false;
-            lineChartOptions.datasetFill = false;
+            let lineChartCanvas = $('#lineChart').get(0).getContext('2d');
+            let lineChartOptions = $.extend(true, {}, areaChartOptions);
+            let lineChartData = $.extend(true, {}, areaChartData);
             new Chart(lineChartCanvas, {
                 type: 'line',
                 data: lineChartData,

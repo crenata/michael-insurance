@@ -98,14 +98,14 @@
                     </div>
 
                     @auth
-                        @if(auth()->user()->type === "admin")
-                            @include("layouts.sidebar-admin")
-                        @elseif(auth()->user()->type === "broker")
+                        @if(auth()->user()->type === "broker")
                             @include("layouts.sidebar-broker")
                         @elseif(auth()->user()->type === "underwriting")
                             @include("layouts.sidebar-underwriting")
-                        @else
+                        @elseif(auth()->user()->type === "policy")
                             @include("layouts.sidebar-policy")
+                        @else
+                            @include("layouts.sidebar-admin")
                         @endif
                     @endauth
                 </div>

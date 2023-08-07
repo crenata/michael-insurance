@@ -193,8 +193,15 @@ class QuotationController extends Controller {
             "ppa" => ["required", "string", Rule::in(["No", "Yes"])],
             "ppa_limit" => "nullable|numeric|min:1",
             "files" => "required|array",
-            "files.*" => "required|file|image"
+            "files.*" => "required|file"
         ]);
+
+        /*if($request->has('pdf')){
+            foreach($request->file('pdf') as $pdf){
+                $pdfName = $request['files'].time().rand(1,1000).'.'.$pdf->extension();
+                $pdf->move(public_path(),$pdfName);
+            }
+        }*/
 
         return DB::transaction(function () use ($request) {
             $files = $request->file("files");

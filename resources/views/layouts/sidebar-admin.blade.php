@@ -17,14 +17,6 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route("users") }}" class="nav-link {{ Route::is("users") ? "active" : "" }}">
-                <i class="nav-icon fas fa-copy"></i>
-                <p>
-                    Registered User List
-                </p>
-            </a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}"
                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                 <i class="nav-icon fas fa-th"></i>

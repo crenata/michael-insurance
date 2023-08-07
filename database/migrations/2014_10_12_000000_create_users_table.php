@@ -28,13 +28,6 @@ return new class extends Migration {
         foreach (
             [
                 [
-                    "name" => "Admin",
-                    "email" => "admin@gmail.com",
-                    "password" => "admin123",
-                    "type" => "admin",
-                    "branch_id" => 1
-                ],
-                [
                     "name" => "Broker",
                     "email" => "broker@gmail.com",
                     "password" => "broker123",

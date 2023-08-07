@@ -30,6 +30,7 @@
                             @if(Route::is("underwriting.quotation.review") || Route::is("policy.quotation.review") || Route::is("quotation.rejected"))
                                 <th>Action</th>
                             @endif
+                            <th>PDF Files</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -62,6 +63,13 @@
                                         </td>
                                     @endif
                                 @endif
+                                <td>
+                                    @foreach ($quotation->files as $file)
+                                        <a href="{{ $file->file }}" download>
+                                            {{ str_replace(env("APP_URL") . "/storage/quotations/", "", $file->file) }}
+                                        </a>
+                                    @endforeach
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -81,6 +89,7 @@
                             @if(Route::is("underwriting.quotation.review") || Route::is("policy.quotation.review") || Route::is("quotation.rejected"))
                                 <th>Action</th>
                             @endif
+                            <th>PDF Files</th>
                         </tr>
                         </tfoot>
                     </table>

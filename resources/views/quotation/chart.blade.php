@@ -194,9 +194,12 @@
                 options: areaChartOptions
             });
 
-            let lineChartCanvas = $('#lineChart').get(0).getContext('2d');
-            let lineChartOptions = $.extend(true, {}, areaChartOptions);
-            let lineChartData = $.extend(true, {}, areaChartData);
+            let lineChartCanvas = $('#lineChart').get(0).getContext('2d')
+            let lineChartOptions = $.extend(true, {}, areaChartOptions)
+            let lineChartData = $.extend(true, {}, areaChartData)
+            lineChartData.datasets[0].fill = false;
+            lineChartData.datasets[1].fill = false;
+            lineChartOptions.datasetFill = false;
             new Chart(lineChartCanvas, {
                 type: 'line',
                 data: lineChartData,

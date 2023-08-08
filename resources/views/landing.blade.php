@@ -12,21 +12,21 @@
   <title>E-Insurance | Landing Page</title>
 
   <!--====== Favicon Icon ======-->
-  <link rel="shortcut icon" href="img/favicon.svg" type="image/svg" />
+  <link rel="shortcut icon" href="{{ URL('img/favicon.svg') }}" type="image/svg" />
 
   <!--====== Bootstrap css ======-->
-  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="{{ URL('css/bootstrap.min.css') }}" />
 
   <!--====== Line Icons css ======-->
-  <link rel="stylesheet" href="css/lineicons.css" />
+  <link rel="stylesheet" href="{{ URL('css/lineicons.css') }}" />
 
   <!--====== Tiny Slider css ======-->
-  <link rel="stylesheet" href="css/tiny-slider.css" />
+  <link rel="stylesheet" href="{{ URL('css/tiny-slider.css') }}" />
 
   <!--====== gLightBox css ======-->
-  <link rel="stylesheet" href="css/glightbox.min.css" />
+  <link rel="stylesheet" href="{{ URL('css/glightbox.min.css') }}" />
 
-  <link rel="stylesheet" href="css/landing.css" />
+  <link rel="stylesheet" href="{{ URL('css/landing.css') }}" />
 </head>
 
 <body>
@@ -39,7 +39,7 @@
         <div class="col-lg-12">
           <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand" href="index.html">
-              <img src="{{ asset('img/logo.png') }}" alt="Logo" />
+              <img src="{{ URL('img/logo.png') }}" alt="Logo" />
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNine"
               aria-controls="navbarNine" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +81,7 @@
     </div>
     <div class="sidebar-content">
       <div class="sidebar-logo">
-        <a href="index.html"><img src="img/logo-black.png" alt="Logo" /></a>
+        <a href="index.html"><img src="{{ URL('img/logo-black.png') }}" alt="Logo" /></a>
       </div>
       <p class="text">Whether it’s everyday concerns like motor insurance, home protection, personal accidents, health, travel or business insurance, XYZ General Insurance has you covered!</p>
       <!-- logo -->

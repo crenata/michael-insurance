@@ -86,6 +86,10 @@ return [
                 'log',
             ],
         ],
+
+        'sendgrid' => [
+            'transport' => 'sendgrid',
+        ],
     ],
 
     /*
@@ -100,8 +104,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'emailresetter01@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'Password Reset'),
     ],
 
     /*

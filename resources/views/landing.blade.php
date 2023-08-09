@@ -12,21 +12,21 @@
   <title>E-Insurance | Landing Page</title>
 
   <!--====== Favicon Icon ======-->
-  <link rel="shortcut icon" href="{{ URL('img/favicon.svg') }}" type="image/svg" />
+  <link rel="shortcut icon" href="{{ asset('dist/img/favicon.svg') }}" type="image/svg" />
 
   <!--====== Bootstrap css ======-->
-  <link rel="stylesheet" href="{{ URL('css/bootstrap.min.css') }}" />
+  <link rel="stylesheet" href="{{ asset('dist/css/bootstrap.min.css') }}" />
 
   <!--====== Line Icons css ======-->
-  <link rel="stylesheet" href="{{ URL('css/lineicons.css') }}" />
+  <link rel="stylesheet" href="{{ asset('dist/css/lineicons.css') }}" />
 
   <!--====== Tiny Slider css ======-->
-  <link rel="stylesheet" href="{{ URL('css/tiny-slider.css') }}" />
+  <link rel="stylesheet" href="{{ asset('dist/css/tiny-slider.css') }}" />
 
   <!--====== gLightBox css ======-->
-  <link rel="stylesheet" href="{{ URL('css/glightbox.min.css') }}" />
+  <link rel="stylesheet" href="{{ asset('dist/css/glightbox.min.css') }}" />
 
-  <link rel="stylesheet" href="{{ URL('css/landing.css') }}" />
+  <link rel="stylesheet" href="{{ asset('dist/css/landing.css') }}" />
 </head>
 
 <body>
@@ -39,7 +39,7 @@
         <div class="col-lg-12">
           <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand" href="index.html">
-              <img src="{{ URL('img/logo.png') }}" alt="Logo" />
+              <img src="{{ asset('dist/img/logo.png') }}" alt="Logo" />
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNine"
               aria-controls="navbarNine" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,14 +51,13 @@
             <div class="collapse navbar-collapse sub-menu-bar" id="navbarNine">
               <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                  <a class="page-scroll active" href="">Home</a>
+                  <a class="home" href="{{ url('/') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="page-scroll" href="">Login</a>
+                    <a class="login" href="{{ route('login') }}">Login</a>
                 </li>
               </ul>
             </div>
-
             <div class="navbar-btn d-none d-lg-inline-block">
               <a class="menu-bar" href="#side-menu-left"><i class="lni lni-menu"></i></a>
             </div>
@@ -81,7 +80,7 @@
     </div>
     <div class="sidebar-content">
       <div class="sidebar-logo">
-        <a href="index.html"><img src="{{ URL('img/logo-black.png') }}" alt="Logo" /></a>
+        <a href="index.html"><img src="{{ asset('dist/img/logo-black.png') }}" alt="Logo" /></a>
       </div>
       <p class="text">Whether it’s everyday concerns like motor insurance, home protection, personal accidents, health, travel or business insurance, XYZ General Insurance has you covered!</p>
       <!-- logo -->
@@ -111,13 +110,13 @@
              XYZ General Insurance Company protects your lifestyle and the things you value, both personal and business
             </p>
             <div class="button">
-              <a href="javascript:void(0)" class="btn primary-btn">Get Started</a>
+              <a href="{{ route('login') }}" class="btn primary-btn">Get Started</a>
             </div>
           </div>
         </div>
         <div class="col-lg-6 col-md-12 col-12">
           <div class="header-image">
-            <img src="assets/images/header/hero-image.jpg" alt="#" />
+            <img src="{{ asset('dist/img/header/hero-image.jpg') }}" alt="#" />
           </div>
         </div>
       </div>
@@ -215,7 +214,7 @@
               <circle cx="60.333" cy="132" r="1.66667" fill="#DADADA" />
               <circle cx="104" cy="132" r="1.66667" fill="#DADADA" />
             </svg>
-            <img src="assets/images/about/about-img1.jpg" alt="about" />
+            <img src="{{ asset('dist/img/about/about-img1.jpg') }}" alt="about" />
           </div>
         </div>
         <div class="col-lg-6 col-12">
@@ -279,7 +278,7 @@
               <div class="footer-widget f-about">
                 <div class="logo">
                   <a href="index.html">
-                    <img src="assets/images/logo-black.png" alt="#" class="img-fluid" />
+                    <img src="{{ asset('dist/img/logo-black.png') }}" alt="#" class="img-fluid" />
                   </a>
                 </div>
                 <p>
@@ -301,7 +300,7 @@
             <div class="col-lg-4 col-md-6 col-12">
               <!-- Single Widget -->
               <div class="footer-widget f-link">
-                <h5>Solutions</h5>
+                <h5>Quick Links</h5>
                 <ul>
                   <li><a href="javascript:void(0)">About Us</a></li>
                   <li><a href="javascript:void(0)">Contacts</a></li>
@@ -319,7 +318,7 @@
 
 	<div class="made-in-ayroui mt-4">
 		<a href="https://ayroui.com" target="_blank" rel="nofollow">
-		  <img style="width:220px" src="assets/images/ayroui.svg">
+		  <img style="width:220px" src="{{ asset('dist/img/ayroui.svg') }}">
 		</a>
 	</div>
 
@@ -328,10 +327,10 @@
   </a>
 
   <!--====== js ======-->
-  <script src="assets/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/js/glightbox.min.js"></script>
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/tiny-slider.js"></script>
+  <script src="{{ asset('dist/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('dist/js/glightbox.min.js') }}"></script>
+  <script src="{{ asset('dist/js/main.js') }}"></script>
+  <script src="{{ asset('dist/js/tiny-slider.js') }}"></script>
 
   <script>
 

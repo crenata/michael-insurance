@@ -43,9 +43,13 @@
                                 <div class="col-md-6 offset-md-4">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
                                         <label class="form-check-label" for="remember">
                                             {{ __('Remember Me') }}
+                                        </label>
+
+                                        <input class="form-check-label" type="checkbox" onclick="myFunction()">
+                                        <label class="form-check-label" for="showPassword">
+                                            Show Password
                                         </label>
                                     </div>
                                 </div>
@@ -70,4 +74,15 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        function myFunction() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+      }
+    </script>
 @endsection

@@ -15,27 +15,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get("/", function () {
-    return view("landing");
+    return view("welcome");
 });
-
-/*Route::get("/", function () {
-    return view("auth/login");
-});*/
 
 Auth::routes();
 
 Route::middleware("auth")->group(function () {
     Route::get("home", [App\Http\Controllers\HomeController::class, "index"])->name("home");
+    Route::get("users", [App\Http\Controllers\HomeController::class, "users"])->name("users");
     Route::get("chart", [App\Http\Controllers\HomeController::class, "chart"])->name("chart");
 
     Route::prefix("quotation")->group(function () {
         Route::get("flow", [\App\Http\Controllers\HomeController::class, "flow"])->name("quotation.flow");
         Route::get("created", [\App\Http\Controllers\HomeController::class, "created"])->name("quotation.created");
         Route::get("rejected", [\App\Http\Controllers\HomeController::class, "rejected"])->name("quotation.rejected");
-    });
-
-    Route::prefix("admin")->namespace('App\Http\Controllers\Admin')->group(function () {
-
     });
 
     Route::prefix("broker")->group(function () {
@@ -48,7 +41,6 @@ Route::middleware("auth")->group(function () {
         });
         Route::resource("discount", \App\Http\Controllers\Broker\DiscountController::class)->names("broker.discount");
     });
-
     Route::prefix("underwriting")->group(function () {
         Route::prefix("quotation")->group(function () {
             Route::get("review", [\App\Http\Controllers\Underwriting\QuotationController::class, "review"])->name("underwriting.quotation.review");
@@ -56,7 +48,6 @@ Route::middleware("auth")->group(function () {
             Route::get("accept/{id}", [\App\Http\Controllers\Underwriting\QuotationController::class, "accept"])->name("underwriting.quotation.accept");
         });
     });
-
     Route::prefix("policy")->group(function () {
         Route::prefix("quotation")->group(function () {
             Route::get("review", [\App\Http\Controllers\Policy\QuotationController::class, "review"])->name("policy.quotation.review");

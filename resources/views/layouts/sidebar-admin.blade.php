@@ -10,9 +10,25 @@
         </li>
         <li class="nav-item">
             <a href="{{ route("register") }}" class="nav-link {{ Route::is("register") ? "active" : "" }}">
-                <i class="nav-icon fas fa-th"></i>
+                <i class="nav-icon fa-solid fa-user-plus"></i>
                 <p>
                     Register User
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route("users") }}" class="nav-link {{ Route::is("users") ? "active" : "" }}">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                    Registered User List
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route("quotation.flow") }}" class="nav-link {{ Route::is("quotation.flow") ? "active" : "" }}">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                    View Quotation Flow
                 </p>
             </a>
         </li>

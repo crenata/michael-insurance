@@ -549,6 +549,7 @@
                                     class="form-control
                                     @error("files") is-invalid @enderror" accept="application/pdf"
                                     required>
+                                    <label>Upload KTP, SIM, STNK dan BPKB</label>
                                     @error("files")
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

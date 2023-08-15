@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'b08a1a0c1e8676f3a151686afbdb4f94586a4574',
+        'reference' => '05441e0f2bba0f2ce11e715a08915dcb6922bed1',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -183,6 +183,18 @@
             'install_path' => __DIR__ . '/../guzzlehttp/uri-template',
             'aliases' => array(),
             'dev_requirement' => false,
+        ),
+        'halleck45/php-metrics' => array(
+            'dev_requirement' => true,
+            'replaced' => array(
+                0 => '*',
+            ),
+        ),
+        'halleck45/phpmetrics' => array(
+            'dev_requirement' => true,
+            'replaced' => array(
+                0 => '*',
+            ),
         ),
         'hamcrest/hamcrest-php' => array(
             'pretty_version' => 'v2.0.1',
@@ -409,7 +421,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'b08a1a0c1e8676f3a151686afbdb4f94586a4574',
+            'reference' => '05441e0f2bba0f2ce11e715a08915dcb6922bed1',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -625,6 +637,15 @@
             'reference' => '4f7fd7836c6f332bb2933569e566a0d6c4cbed74',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phar-io/version',
+            'aliases' => array(),
+            'dev_requirement' => true,
+        ),
+        'phpmetrics/phpmetrics' => array(
+            'pretty_version' => 'v2.8.2',
+            'version' => '2.8.2.0',
+            'reference' => '4b77140a11452e63c7a9b98e0648320bf6710090',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpmetrics/phpmetrics',
             'aliases' => array(),
             'dev_requirement' => true,
         ),

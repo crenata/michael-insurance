@@ -85,7 +85,7 @@ class RegisterController extends Controller
         return view('auth.register')->withBranches($branches);
     }
     /**
-     * Handle a registration request for the application.
+     * Handle a registration request for the applications.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse

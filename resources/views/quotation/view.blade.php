@@ -16,7 +16,7 @@
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th>Quotation Number</th>
+                            <th>Quotations Number</th>
                             <th>Customer's Name</th>
                             <th>Registered Date</th>
                             <th>Period</th>
@@ -64,11 +64,14 @@
                                     @endif
                                 @endif
                                 <td>
-                                    @foreach ($quotation->files as $file)
-                                        <a href="{{ $file->file }}" download>
-                                            {{ str_replace(env("APP_URL") . "/storage/quotations/", "", $file->file) }}
-                                        </a>
-                                    @endforeach
+                                    <ul>
+                                        @foreach ($quotation->files as $file)
+                                            <li>
+                                                <a href="{{ $file->file }}" target="_blank">{{ str_replace(env("APP_URL") . "/storage/quotations/", "", $file->file) }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
                                 </td>
                             </tr>
                         @endforeach

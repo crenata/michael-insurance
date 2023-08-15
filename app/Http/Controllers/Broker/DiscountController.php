@@ -22,7 +22,7 @@ class DiscountController extends Controller {
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in storages.
      */
     public function store(Request $request) {
         $startDate = explode(" - ", $request->reservation)[0];

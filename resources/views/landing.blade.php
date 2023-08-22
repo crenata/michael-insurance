@@ -116,7 +116,7 @@
         </div>
         <div class="col-lg-6 col-md-12 col-12">
           <div class="header-image">
-            <img src="{{ asset('dist/img/header/hero-image.jpg') }}" alt="#" />
+            <img src="{{ asset('dist/img/header/car.jpg') }}" alt="#" />
           </div>
         </div>
       </div>
